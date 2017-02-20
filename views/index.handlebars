@@ -1,0 +1,49 @@
+{{!--Here, I am creating the ID  of the section for available, where the burgers that are available and are not devoured will reside. --}}
+<div class="container">
+    <h2>Add a Burger!</h2>
+        <form class="create-update-form" action="/" method="POST">
+            <div class="form-group">
+                {{!--<input type="text" id="burgerInput" name="burger_name">--}}
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                <div class="form-group">
+                    <textarea class="form-control" id="burgerInput" rows="1" name="burger_name"></textarea>
+                    <button id="burgerSubmitButton" type="submit" class="btn btn-primary-outline">Add Your Burger!</button>
+                </div>
+                </div>
+                <div class="col-sm-4"></div>
+            </div>
+
+        </form>
+</div>
+<div class="container">
+
+    <h2>Available Burgers</h2>
+
+        {{#each burgers}}
+            {{!--Here, we are stating that if the burger is not devoured, it will populate here. --}}
+            {{#unless this.devoured}}
+               <p>{{this.burger_name}}</p>
+                    {{!--Here, we are creating a form action that will have a button that will make the button devoured when it is clicked on. --}}
+                    <form action="/?_method=PUT" method="POST" class="devouredButton">
+                        <input type="hidden" name="id" value="{{this.id}}">
+                        <button type="submit" class="btn btn-primary">Devour!</button>
+                    </form>
+            {{/unless}}
+        {{/each}}
+
+
+</div>
+
+<div class="container">
+
+    <h2>Devoured Burgers</h2>
+        {{#each burgers}}
+            {{#if this.devoured}}
+                <p>
+                    {{this.burger_name}}
+                </p>
+            {{/if}}
+        {{/each}}
+
+</div>
