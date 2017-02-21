@@ -12,6 +12,9 @@ var app = express();
 // Here, we are defining our port number for it to listen on. 
 var PORT = process.env.PORT || 3000;
 
+//Requires Sequelize and models for syncing
+var db = require('./models');
+
 // Serve static content for the app from the "public" directory in the application directory. 
 app.use(express.static(__dirname + "/public"));
 // Here, we are going to incorporate our bodyparser NPM package using express. 
@@ -30,4 +33,12 @@ app.set('view engine', 'handlebars');
 // This variable is pointing to where all of our express routes are located. 
 var routes = require('./controllers/burgers_controller')(app);
 // Here, we are setting up our server to listen for anything we send on the PORT that we previously definded, which is #3000. 
-app.listen(PORT);
+
+// Here, we are syncing our sequelize models in reference to our db variable set above. 
+db.sequelize.sync({}).then(function(){
+    //Runing the server here. 
+
+    app.listen(PORT, function(){
+        console.log("App is listening on PORT: " + PORT)
+    });
+});
