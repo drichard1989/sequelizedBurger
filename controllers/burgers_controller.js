@@ -24,7 +24,7 @@ module.exports = function (app){
         //Here, we are going to be setting up the post route to listen for a request, and in this function, send this data using the insertOne method, through to the burgers.js file. After that, we are going to write a function that returns the response that the client is expecting.
         // console.log(request.body);
         burger.Burger.create({
-            burger_name: req.body.burger_name
+            burger_name: request.body.burger_name
         }).then(function(dbBurger){
             response.redirect('/');
         });
@@ -40,7 +40,7 @@ module.exports = function (app){
             devoured: true
         }, {
             where: {
-                id: req.body.id
+                id: request.body.id
             }
         }).then(function(dbBurger){
             response.redirect('/');
